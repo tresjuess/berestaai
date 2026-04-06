@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BerestaAI — О проекте</title>
+<style>
+  @font-face {
+    font-family: 'Pisalo';
+    src: url('/static/Pisalo-Regular.otf') format('opentype');
+    font-weight: normal;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg:        #f2ede3;
+    --nav-bg:    #3b3a2e;
+    --nav-text:  #d4c9a8;
+    --text:      #2c2416;
+    --muted:     #7a6e5a;
+    --border:    #c4b99a;
+    --accent:    #5a4a28;
+    --btn:       #4a3e20;
+    --btn-hover: #3a2e14;
+    --drop-bg:   #ede8da;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    background: var(--nav-bg);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  nav a {
+    color: var(--nav-text);
+    text-decoration: none;
+    font-size: 13px;
+    opacity: 0.85;
+    transition: opacity .15s;
+  }
+
+  nav a:hover { opacity: 1; }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px 64px;
+    gap: 32px;
+  }
+
+  h1 {
+    font-family: 'Pisalo', 'Georgia', serif;
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: normal;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .content {
+    max-width: 800px;
+    width: 100%;
+    background: var(--drop-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+  }
+
+  .content p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+
+  .content h3 {
+    font-family: 'Pisalo', 'Georgia', serif;
+    font-size: 22px;
+    font-weight: normal;
+    color: var(--accent);
+    margin: 24px 0 12px 0;
+  }
+
+  .content h3:first-of-type {
+    margin-top: 0;
+  }
+
+  .team {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 20px 0 16px;
+  }
+
+  .team-member {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+  }
+
+  .team-name {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .contact {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+
+  .contact a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/">Главная</a>
+  <a href="/about">О проекте</a>
+  <a href="https://gramoty.ru" target="_blank">База грамот</a>
+  <a href="/test">Попробовать</a>
+</nav>
+
+<main>
+  <h1>О ПРОЕКТЕ</h1>
+
+  <div class="content">
+    <p><strong>BerestaAI: Birchbark Tracing Toolkit</strong> — инструмент для автоматической генерации прорисей берестяных грамот на основе нейросетевой модели image-to-image (CycleGAN). Проект создаётся в рамках инициативы по цифровизации культурного наследия при ГИВЦ Министерства культуры РФ.</p>
+
+    <h3>Миссия</h3>
+    <p>Снизить временные и трудовые затраты на создание прорисей — от нескольких часов ручной работы до нескольких минут автоматической генерации с последующей правкой — и тем самым ускорить введение новых грамот в научный и публичный оборот.</p>
+
+    <h3>Команда</h3>
+    <div class="team">
+      <div class="team-member">
+        <div class="team-name">Максим Еремеев</div>
+        <div class="team-role">студент НИУ ВШЭ</div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">Анастасия Шаврина</div>
+        <div class="team-role">студентка НИУ ВШЭ</div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">Софья Черноусенко</div>
+        <div class="team-role">студентка НИУ ВШЭ</div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">Анна Шрейбер</div>
+        <div class="team-role">студентка НИУ ВШЭ</div>
+      </div>
+    </div>
+
+    <h3>Партнёры и архивы</h3>
+    <p>Проект реализуется при поддержке ГИВЦ Минкультуры РФ, с использованием данных портала «Древнерусские берестяные грамоты» (совместный проект НИУ ВШЭ и Института славяноведения РАН).</p>
+
+    <h3>Справочная информация</h3>
+    <p>Создание прориси — графического линейного чертежа, воспроизводящего начертание знаков на бересте, — является важным этапом при публикации берестяной грамоты. До примерно 900-й грамоты прориси создавались исследователями на бумаге, затем стали использовать Photoshop. Каждая прорись — это интерпретация учёного и художника, который уже имеет прочтение текста на руках и сам решает, какие штрихи включать в прорись, а какие нет.</p>
+
+    <h3>Контакты</h3>
+    <div class="contact">
+      <p><a href="mailto:info@beresta-ai.ru">asshreyber@edu.hse.ru</a> — по всем вопросам</p>
+    </div>
+  </div>
+</main>
+
+<footer>Проектная лаборатория цифровизации культурного наследия · ГИВЦ Минкультуры РФ</footer>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АБВЕДИ</title>
+<style>
+  @font-face {
+    font-family: 'Pisalo';
+    src: url('/static/Pisalo-Regular.otf') format('opentype');
+    font-weight: normal;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg:        #f2ede3;
+    --nav-bg:    #3b3a2e;
+    --nav-text:  #d4c9a8;
+    --text:      #2c2416;
+    --muted:     #7a6e5a;
+    --border:    #c4b99a;
+    --accent:    #5a4a28;
+    --btn:       #4a3e20;
+    --btn-hover: #3a2e14;
+    --drop-bg:   #ede8da;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    background: var(--nav-bg);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  nav a {
+    color: var(--nav-text);
+    text-decoration: none;
+    font-size: 13px;
+    opacity: 0.85;
+    transition: opacity .15s;
+  }
+
+  nav a:hover { opacity: 1; }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px 64px;
+    gap: 32px;
+  }
+
+  h1 {
+    font-family: 'Pisalo', 'Georgia', serif;
+    font-size: clamp(52px, 10vw, 96px);
+    font-weight: normal;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .upload-area {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hint {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .dropzone {
+    width: 100%;
+    min-height: 260px;
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    background: var(--drop-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color .2s, background .2s;
+    overflow: hidden;
+  }
+
+  .dropzone:hover,
+  .dropzone.over {
+    border-color: var(--accent);
+    background: #e8e0cc;
+  }
+
+  .dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dropzone-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    opacity: 0.35;
+  }
+
+  .dropzone-text {
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .dropzone-text span {
+    display: block;
+    font-size: 12px;
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+
+  .preview {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    display: none;
+    border-radius: 2px;
+  }
+
+  .btn {
+    margin-top: 4px;
+    padding: 12px 36px;
+    background: var(--btn);
+    color: #f2ede3;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background .15s;
+  }
+
+  .btn:hover { background: var(--btn-hover); }
+  .btn:disabled { opacity: 0.45; cursor: default; }
+
+  .result-area {
+    width: 100%;
+    max-width: 560px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .result-label {
+    font-size: 13px;
+    color: var(--muted);
+    align-self: flex-start;
+    letter-spacing: 0.02em;
+  }
+
+  .result-img {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    align-self: flex-start;
+  }
+
+  .btn-outline {
+    padding: 8px 20px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    background: #ede8da;
+  }
+
+  .spinner {
+    display: none;
+    width: 28px;
+    height: 28px;
+    border: 2.5px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/">Главная</a>
+  <a href="/about">О проекте</a>
+  <a href="https://gramoty.ru" target="_blank">База грамот</a>
+  <a href="/test">Попробовать</a>
+</nav>
+
+<main>
+  <h1>ПРОРИСОВЩИК</h1>
+
+  <div class="upload-area">
+    <p class="hint">Перетащите фото грамоты</p>
+
+    <div class="dropzone" id="dropzone">
+      <input type="file" id="fileInput" accept="image/*">
+      <svg class="dropzone-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="8" width="36" height="32" rx="3" stroke="#7a6e5a" stroke-width="2"/>
+        <circle cx="17" cy="20" r="4" stroke="#7a6e5a" stroke-width="2"/>
+        <path d="M6 34l10-10 8 8 6-6 12 8" stroke="#7a6e5a" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <p class="dropzone-text">
+        Перетяните изображение сюда
+        <span>или нажмите, чтобы выбрать файл</span>
+      </p>
+      <img class="preview" id="preview" alt="предпросмотр">
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:12px; width:100%">
+      <div class="spinner" id="spinner"></div>
+      <button class="btn" id="submitBtn" disabled onclick="processImage()">Сделать прорись</button>
+    </div>
+  </div>
+
+  <div class="result-area" id="resultArea">
+    <p class="result-label">Прорись:</p>
+    <img class="result-img" id="resultImg" alt="прорись">
+    <div class="result-actions">
+      <button class="btn-outline" onclick="downloadResult()">Скачать</button>
+      <button class="btn-outline" onclick="reset()">Загрузить другую</button>
+    </div>
+  </div>
+</main>
+
+<footer>Проектная лаборатория цифровизации культурного наследия · ГИВЦ Минкультуры РФ</footer>
+
+<script>
+const dropzone  = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const preview   = document.getElementById('preview');
+const submitBtn = document.getElementById('submitBtn');
+const spinner   = document.getElementById('spinner');
+const resultArea = document.getElementById('resultArea');
+const resultImg  = document.getElementById('resultImg');
+
+let currentFile = null;
+
+fileInput.addEventListener('change', e => {
+  if (e.target.files[0]) loadFile(e.target.files[0]);
+});
+
+dropzone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropzone.classList.add('over');
+});
+
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('over'));
+
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) loadFile(file);
+});
+
+function loadFile(file) {
+  currentFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    dropzone.querySelector('.dropzone-icon').style.display = 'none';
+    dropzone.querySelector('.dropzone-text').style.display = 'none';
+    submitBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function processImage() {
+  if (!currentFile) return;
+
+  submitBtn.disabled = true;
+  spinner.style.display = 'block';
+  resultArea.style.display = 'none';
+
+  const formData = new FormData();
+  formData.append('image', currentFile);
+
+  try {
+    // TODO: заменить на реальный эндпоинт модели
+    const response = await fetch('/api/proris', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error('Ошибка сервера');
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    resultImg.src = url;
+    resultArea.style.display = 'flex';
+
+  } catch (err) {
+    alert('Не удалось получить прорись. Проверьте соединение с сервером.');
+  } finally {
+    spinner.style.display = 'none';
+    submitBtn.disabled = false;
+  }
+}
+
+function downloadResult() {
+  const a = document.createElement('a');
+  a.href = resultImg.src;
+  a.download = 'proris.png';
+  a.click();
+}
+
+function reset() {
+  currentFile = null;
+  preview.style.display = 'none';
+  preview.src = '';
+  dropzone.querySelector('.dropzone-icon').style.display = '';
+  dropzone.querySelector('.dropzone-text').style.display = '';
+  fileInput.value = '';
+  submitBtn.disabled = true;
+  resultArea.style.display = 'none';
+}
+</script>
+</body>
+</html>

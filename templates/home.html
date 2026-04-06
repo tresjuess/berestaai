@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BerestaAI — Главная</title>
+<style>
+  @font-face {
+    font-family: 'Pisalo';
+    src: url('/static/Pisalo-Regular.otf') format('opentype');
+    font-weight: normal;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg:        #f2ede3;
+    --nav-bg:    #3b3a2e;
+    --nav-text:  #d4c9a8;
+    --text:      #2c2416;
+    --muted:     #7a6e5a;
+    --border:    #c4b99a;
+    --accent:    #5a4a28;
+    --btn:       #4a3e20;
+    --btn-hover: #3a2e14;
+    --drop-bg:   #ede8da;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  nav {
+    background: var(--nav-bg);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  nav a {
+    color: var(--nav-text);
+    text-decoration: none;
+    font-size: 13px;
+    opacity: 0.85;
+    transition: opacity .15s;
+  }
+
+  nav a:hover { opacity: 1; }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px 64px;
+    gap: 32px;
+  }
+
+  h1 {
+    font-family: 'Pisalo', 'Georgia', serif;
+    font-size: clamp(52px, 10vw, 96px);
+    font-weight: normal;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .subhead {
+    text-align: center;
+    color: var(--muted);
+    font-size: 16px;
+    font-style: italic;
+    margin-top: -16px;
+    letter-spacing: 0.02em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .card {
+    background: var(--drop-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  }
+
+  .card h3 {
+    font-family: 'Georgia', 'Georgia', serif;
+    font-size: 28px;
+    font-weight: normal;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .card p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .section {
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .section-title {
+    font-family: 'Pisalo', 'Georgia', serif;
+    font-size: 28px;
+    font-weight: normal;
+    color: var(--accent);
+    margin: 24px 0 20px 0;
+    text-align: center;
+  }
+
+  .news-item {
+    background: var(--drop-bg);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  .news-date {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-family: Arial, sans-serif;
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .project-link {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    transition: all .15s;
+  }
+
+  .project-link:hover {
+    background: var(--drop-bg);
+    border-color: var(--accent);
+  }
+
+  .btn {
+    margin-top: 8px;
+    padding: 10px 28px;
+    background: var(--btn);
+    color: #f2ede3;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background .15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover { background: var(--btn-hover); }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/">Главная</a>
+  <a href="/about">О проекте</a>
+  <a href="https://gramoty.ru" target="_blank">База грамот</a>
+  <a href="/test">Попробовать</a>
+</nav>
+
+<main>
+  <h1>АБВЕДИ</h1>
+  <div class="subhead">автоматическая очистка берестяных грамот</div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1 200+</h3>
+      <p>пар «фотография — прорись» в обучающем датасете. Золотой корпус с портала gramoty.ru</p>
+    </div>
+    <div class="card">
+      <h3>30–40 сек</h3>
+      <p>вместо 2–3 часов ручной работы. Нейросеть создаёт черновую прорись за секунды</p>
+    </div>
+    <div class="card">
+      <h3>Human‑in‑the‑loop</h3>
+      <p>исследователь остаётся верификатором: возможность внесения ручных правок через графический редактор</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Новости и экспедиции</div>
+    <div class="news-item">
+      <div class="news-date">август 2026</div>
+      <p>Старт полевого сезона в Великом Новгороде: экспедиционеры на раскопках</p>
+    </div>
+    <div class="news-item">
+      <div class="news-date">июль 2026</div>
+      <p>В Институте славяноведения РАН прошёл семинар по цифровой палеографии.</p>
+    </div>
+    <div class="news-item">
+      <div class="news-date">июнь 2026</div>
+      <p>Опубликована статья коллег из НИУ ВШЭ о методах компьютерного анализа берестяных текстов.</p>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">Дружественные проекты</div>
+    <div class="project-links">
+      <a href="https://gramoty.ru" target="_blank" class="project-link">Древнерусские берестяные грамоты</a>
+      <a href="http://manuscripts.ru/" target="_blank" class="project-link">Манускрипт: славянское письменное наследие</a>
+      <a href="https://archaeolog.ru/" target="_blank" class="project-link">Археологическая база ИА РАН</a>
+    
+    </div>
+  </div>
+
+  <a href="/test" class="btn">Попробовать онлайн</a>
+</main>
+
+<footer>Проектная лаборатория цифровизации культурного наследия · ГИВЦ Минкультуры РФ</footer>
+</body>
+</html>
